@@ -9,7 +9,7 @@
 
 % lower bound gdzie to jeszcze ma sens...
 A0 = [ 2 1
-       1 2 ];
+       1 3 ];
 
 % ideal points - idealne rozw
 A1 = [ 6 12
@@ -17,9 +17,10 @@ A1 = [ 6 12
        16 4 ];
 
 % attainable points - zno?ne rozw
-A2 = [ 14  3
+A2 = [ 14  8
+       12 11
        10 12
-       10 10 ];
+       8  16 ];
    
 % anti-idea points - tragiczne rozw od czego chcemy sie oddalic
 A3 = [ 20 12 
@@ -33,7 +34,7 @@ figure(1);
 close all;
 hold;
 xlim([0 25]);
-ylim([0 22])
+ylim([0 25])
 pl0 = plot(A0(:,1), A0(:,2), 'b*-');
 pl1 = plot(A1(:,1), A1(:,2), 'g*-');
 pl2 = plot(A2(:,1), A2(:,2), 'c*-');
@@ -44,8 +45,8 @@ legend([pl0, pl1, pl2, pl3], 'A0 - lower bound', 'A1 - ideal points', 'A2 - atta
 %  rozdzial 6.4
 
 % check internal consistency
-internalValid = checkInternalConsistency([A0 A1 A2 A3])
-extern
+% internalValid = checkInternalConsistency([A0 A1 A2 A3])
+mutualValid = checkMutualConsistency(A0, A1, A2, A3)
 
 
 % check mutual consistency

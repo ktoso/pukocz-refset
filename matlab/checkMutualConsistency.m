@@ -14,6 +14,21 @@ function [ valid ] = checkMutualConsistency( A0, A1, A2, A3 )
 
 valid = 1;
 
+for i = 1:size(A0)
+    xi = A0(i,:)
+    dominatorExists = 0;
+    
+    for j = 1:size(A1)
+        xj = A1(j,:)
+        
+%         todo jak por?wnywa? w sumie?
+        if xi <= xj 
+            dominatorExists = 1;
+        end
+    end
+    
+    valid = dominatorExists;
+end
 
 end
 
