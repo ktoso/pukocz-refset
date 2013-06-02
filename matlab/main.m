@@ -12,13 +12,13 @@ A0 = [ 2 1
        1 2 ];
 
 % ideal points - idealne rozw
-A1 = [ 5 5
-       6 7 
-       8 6 ];
+A1 = [ 6 12
+       8  7 
+       16 4 ];
 
 % attainable points - zno?ne rozw
-A2 = [ 10 12
-        7  9
+A2 = [ 14  3
+       10 12
        10 10 ];
    
 % anti-idea points - tragiczne rozw od czego chcemy sie oddalic
@@ -29,16 +29,16 @@ A3 = [ 20 12
 
 % util value a1 < a2 < a3
 
-%% plot spaces
 figure(1);
-hold all;
+close all;
+hold;
 xlim([0 25]);
-ylim([0 25])
-pl0 = plot(A0(:,1), A0(:,2), '*-');
-pl1 = plot(A1(:,1), A1(:,2), '*-');
-pl2 = plot(A2(:,1), A2(:,2), '*-');
-pl3 = plot(A3(:,1), A3(:,2), '*-');
-legend([pl0, pl1, pl2, pl3], 'lower bound', 'ideal points', 'attainable points', 'anti-ideal points');
+ylim([0 22])
+pl0 = plot(A0(:,1), A0(:,2), 'b*-');
+pl1 = plot(A1(:,1), A1(:,2), 'g*-');
+pl2 = plot(A2(:,1), A2(:,2), 'c*-');
+pl3 = plot(A3(:,1), A3(:,2), 'r*-');
+legend([pl0, pl1, pl2, pl3], 'A0 - lower bound', 'A1 - ideal points', 'A2 - attainable points', 'A3 - anti-ideal points');
 
 %% consistency checking
 %  rozdzial 6.4
