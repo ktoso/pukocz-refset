@@ -7,10 +7,10 @@
 % wiadomo ?e nasze rozwi?zanie trzeba zbli?y? jak naj bardziej do
 % najlepszego i najdalej od najgorszego.
 
-N = 100;
+N = 50;
 
 % decision space
-U = randi(20, [N 2]);
+U = randi([8, 15], [N 2]);
 PU = pareto(U);
 
 % lower bound gdzie to jeszcze ma sens...
@@ -36,6 +36,11 @@ A3 = [ 20 12
 
 % util value a1 < a2 < a3
 
+distances = zeros(size(PU), 4);
+for i = 1:size(PU)
+    distances(i,:) = [distanceToSet(A0, PU(i,:)) distanceToSet(A1, PU(i,:)) distanceToSet(A2, PU(i,:)) distanceToSet(A3, PU(i,:))];
+end
+distances
 figure(1);
 close all;
 hold;
@@ -45,8 +50,8 @@ pl0 = plot(A0(:,1), A0(:,2), 'b*-');
 pl1 = plot(A1(:,1), A1(:,2), 'g*-');
 pl2 = plot(A2(:,1), A2(:,2), 'c*-');
 pl3 = plot(A3(:,1), A3(:,2), 'r*-');
-pl4 = plot(U(:,1), U(:,2), 'm*');
-pl5 = plot(PU(:,1), PU(:,2), 'y*');
+pl4 = plot(U(:,1), U(:,2), 'y*');
+pl5 = plot(PU(:,1), PU(:,2), 'm*');
 legend([pl0, pl1, pl2, pl3, pl4, pl5], 'A0 - lower bound', 'A1 - ideal points', 'A2 - attainable points', 'A3 - anti-ideal points', 'input set U', 'pareto optimal set PU');
 
 %% consistency checking
