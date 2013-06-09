@@ -7,6 +7,12 @@
 % wiadomo ?e nasze rozwi?zanie trzeba zbli?y? jak naj bardziej do
 % najlepszego i najdalej od najgorszego.
 
+N = 100
+
+% decision space
+U = randi(20, [N 2]);
+PU = pareto(U);
+
 % lower bound gdzie to jeszcze ma sens...
 A0 = [ 2 1
        1 3 ];
@@ -39,7 +45,9 @@ pl0 = plot(A0(:,1), A0(:,2), 'b*-');
 pl1 = plot(A1(:,1), A1(:,2), 'g*-');
 pl2 = plot(A2(:,1), A2(:,2), 'c*-');
 pl3 = plot(A3(:,1), A3(:,2), 'r*-');
-legend([pl0, pl1, pl2, pl3], 'A0 - lower bound', 'A1 - ideal points', 'A2 - attainable points', 'A3 - anti-ideal points');
+pl4 = plot(U(:,1), U(:,2), 'm*');
+pl5 = plot(PU(:,1), PU(:,2), 'y*');
+legend([pl0, pl1, pl2, pl3, pl4, pl5], 'A0 - lower bound', 'A1 - ideal points', 'A2 - attainable points', 'A3 - anti-ideal points', 'input set U', 'pareto optimal set PU');
 
 %% consistency checking
 %  rozdzial 6.4
