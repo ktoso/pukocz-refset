@@ -7,7 +7,7 @@
 % wiadomo ?e nasze rozwi?zanie trzeba zbli?y? jak naj bardziej do
 % najlepszego i najdalej od najgorszego.
 
-N = 100
+N = 100;
 
 % decision space
 U = randi(20, [N 2]);
@@ -40,7 +40,7 @@ figure(1);
 close all;
 hold;
 xlim([0 25]);
-ylim([0 25])
+ylim([0 25]);
 pl0 = plot(A0(:,1), A0(:,2), 'b*-');
 pl1 = plot(A1(:,1), A1(:,2), 'g*-');
 pl2 = plot(A2(:,1), A2(:,2), 'c*-');
@@ -54,7 +54,7 @@ legend([pl0, pl1, pl2, pl3, pl4, pl5], 'A0 - lower bound', 'A1 - ideal points', 
 
 % check internal consistency
 % internalValid = checkInternalConsistency([A0 A1 A2 A3])
-mutualValid = checkMutualConsistency(A0, A1, A2, A3)
+mutualValid = checkMutualConsistency(A0, A1, A2, A3);
 
 
 % check mutual consistency
