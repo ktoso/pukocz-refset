@@ -36,13 +36,26 @@ A3 = [ 20 12
 
 % util value a1 < a2 < a3
 
-distances = zeros(size(PU), 4);
-for i = 1:size(PU)
+paretoN = size(PU);
+distances = zeros(paretoN, 4);
+for i = 1:paretoN
     distances(i,:) = [distanceToSet(A0, PU(i,:)) distanceToSet(A1, PU(i,:)) distanceToSet(A2, PU(i,:)) distanceToSet(A3, PU(i,:))];
 end
-distances
-figure(1);
+
+for i = 1:paretoN
+    distances(i,:) = [distanceToSet(A0, PU(i,:)) distanceToSet(A1, PU(i,:)) distanceToSet(A2, PU(i,:)) distanceToSet(A3, PU(i,:))];
+end
+
+% here all elements surpassing A0 or A3 should be dropped as incorrect
+
+grades = zeros(paretoN, 1);
+for i = 1:paretoN
+    grades(i) = distances(i, 1) - distances(i, 2);
+end
+[bestGrade, bestIndex] = min(grades);
+
 close all;
+figure(1);
 hold;
 xlim([0 25]);
 ylim([0 25]);
@@ -52,7 +65,19 @@ pl2 = plot(A2(:,1), A2(:,2), 'c*-');
 pl3 = plot(A3(:,1), A3(:,2), 'r*-');
 pl4 = plot(U(:,1), U(:,2), 'y*');
 pl5 = plot(PU(:,1), PU(:,2), 'm*');
-legend([pl0, pl1, pl2, pl3, pl4, pl5], 'A0 - lower bound', 'A1 - ideal points', 'A2 - attainable points', 'A3 - anti-ideal points', 'input set U', 'pareto optimal set PU');
+pl6 = plot(PU(bestIndex,1), PU(bestIndex,2), 'k*');
+legend([pl0, pl1, pl2, pl3, pl4, pl5, pl6], 'A0 - lower bound', 'A1 - ideal points', 'A2 - attainable points', 'A3 - anti-ideal points', 'input set U', 'pareto optimal set PU', 'Best value found by refset');
+hold off;
+
+figure(2);
+hold;
+pldistA0 = plot(distances(:, 1), 'b*');
+pldistA1 = plot(distances(:, 2), 'g*');
+pldistA2 = plot(distances(:, 3), 'c*');
+pldistA3 = plot(distances(:, 4), 'r*');
+plGrades = plot(grades(:), 'k*');
+legend([pldistA0, pldistA1, pldistA2, pldistA3, plGrades], 'Distances to A0 - lower bound (min)', 'Distances to A1 - ideal points (min)', 'Distances to A2 - attainable points (max)', 'Distances to A3 - anti-ideal points (max)', 'input set U', 'pareto optimal set PU', 'Grades (min)');
+hold off;
 
 %% consistency checking
 %  rozdzial 6.4
