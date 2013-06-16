@@ -1,39 +1,26 @@
 %% data setup
 %  rozdzial 6.3
 
-% s?owno muzycznie:
-% chodzi o to aby w przestrzeni rozwi?za? maj?c dostarczone kilka
-% mozliwosci, konkretnie w takich kategoriach: "najlepsze, zno?ne, z?e"
-% wiadomo ?e nasze rozwi?zanie trzeba zbli?y? jak naj bardziej do
-% najlepszego i najdalej od najgorszego.
-
 N = 50;
+INPUT_FILE = 'input.xls';
 
 % decision space
 U = randi([8, 15], [N 2]);
 PU = pareto(U);
 
 % lower bound gdzie to jeszcze ma sens...
-A0 = [ 2 1
-       1 3 ];
+A0 = xlsread(INPUT_FILE, 'A0')
 
 % ideal points - idealne rozw
-A1 = [ 6 12
-       8  7 
-       16 4 ];
+A1 = xlsread(INPUT_FILE, 'A1')
 
 % attainable points - zno?ne rozw
-A2 = [ 14  8
-       12 11
-       10 12
-       8  16 ];
+A2 = xlsread(INPUT_FILE, 'A2')
    
 % anti-idea points - tragiczne rozw od czego chcemy sie oddalic
-A3 = [ 20 12 
-       19 14
-       18 15
-       17 18 ];
+A3 = xlsread(INPUT_FILE, 'A3')
 
+%% -- 
 % util value a1 < a2 < a3
 
 paretoN = size(PU);
@@ -79,12 +66,3 @@ plGrades = plot(grades(:), 'k*');
 legend([pldistA0, pldistA1, pldistA2, pldistA3, plGrades], 'Distances to A0 - lower bound (min)', 'Distances to A1 - ideal points (min)', 'Distances to A2 - attainable points (max)', 'Distances to A3 - anti-ideal points (max)', 'input set U', 'pareto optimal set PU', 'Grades (min)');
 hold off;
 
-%% consistency checking
-%  rozdzial 6.4
-
-% check internal consistency
-% internalValid = checkInternalConsistency([A0 A1 A2 A3])
-mutualValid = checkMutualConsistency(A0, A1, A2, A3);
-
-
-% check mutual consistency
