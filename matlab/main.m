@@ -5,8 +5,9 @@ N = 50;
 INPUT_FILE = 'input.xls';
 
 % decision space
-U = randi([8, 15], [N 2]);
+U = xlsread(INPUT_FILE, 'U');
 PU = pareto(U);
+
 
 % lower bound gdzie to jeszcze ma sens...
 A0 = xlsread(INPUT_FILE, 'A0')
