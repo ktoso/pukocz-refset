@@ -22,6 +22,9 @@ A3 = xlsread(INPUT_FILE, 'A3')
 
 % util value a1 < a2 < a3
 
+% todo - shouldn't we sanitize dominating points here? seems to break rest
+% of flow if not done so...?
+
 paretoN = size(PU);
 distances = zeros(paretoN, 4);
 for i = 1:paretoN
@@ -31,6 +34,9 @@ end
 for i = 1:paretoN
     distances(i,:) = [distanceToSet(A0, PU(i,:)) distanceToSet(A1, PU(i,:)) distanceToSet(A2, PU(i,:)) distanceToSet(A3, PU(i,:))];
 end
+
+% todo or drop points here that are beyond A0 or A3 - but those would be
+% dominating and influencve the PU set anyway before that IMO?
 
 grades = zeros(paretoN, 1);
 for i = 1:paretoN
