@@ -22,8 +22,31 @@ A3 = xlsread(INPUT_FILE, 'A3')
 
 % util value a1 < a2 < a3
 
-% todo - shouldn't we sanitize dominating points here? seems to break rest
-% of flow if not done so...?
+%% checks
+ok0 = checkInternalConsistency(A0) 
+ok1 = checkInternalConsistency(A1) 
+ok2 = checkInternalConsistency(A2) 
+ok3 = checkInternalConsistency(A3) 
+
+msg = 'A%i was not internally consistent! Aborting!\n';
+if ok0 == 0  % todo - i know
+    fprintf(msg, 0)
+    return
+end
+if ok1 == 0 
+    fprintf(msg, 1)
+    return
+end
+if ok2 == 0 
+    fprintf(msg, 2)
+    return
+end
+if ok3 == 0 
+    fprintf(msg, 3)
+    return
+end
+
+%% pareto
 
 paretoN = size(PU);
 distances = zeros(paretoN, 4);
