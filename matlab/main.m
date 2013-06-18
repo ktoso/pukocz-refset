@@ -1,7 +1,6 @@
 %% data setup
 %  rozdzial 6.3
 
-N = 50;
 INPUT_FILE = 'input.xls';
 
 % decision space
@@ -21,7 +20,6 @@ A2 = xlsread(INPUT_FILE, 'A2')
 % anti-idea points - tragiczne rozw od czego chcemy sie oddalic
 A3 = xlsread(INPUT_FILE, 'A3')
 
-%% -- 
 % util value a1 < a2 < a3
 
 paretoN = size(PU);
@@ -34,12 +32,12 @@ for i = 1:paretoN
     distances(i,:) = [distanceToSet(A0, PU(i,:)) distanceToSet(A1, PU(i,:)) distanceToSet(A2, PU(i,:)) distanceToSet(A3, PU(i,:))];
 end
 
-% here all elements surpassing A0 or A3 should be dropped as incorrect
-
 grades = zeros(paretoN, 1);
 for i = 1:paretoN
     grades(i) = distances(i, 1) - distances(i, 2);
 end
+
+final = grades
 [bestGrade, bestIndex] = min(grades);
 
 close all;
@@ -56,6 +54,8 @@ pl5 = plot(PU(:,1), PU(:,2), 'm*');
 pl6 = plot(PU(bestIndex,1), PU(bestIndex,2), 'k*');
 legend([pl0, pl1, pl2, pl3, pl4, pl5, pl6], 'A0 - lower bound', 'A1 - ideal points', 'A2 - attainable points', 'A3 - anti-ideal points', 'input set U', 'pareto optimal set PU', 'Best value found by refset');
 hold off;
+
+best = [PU(bestIndex,1), PU(bestIndex,2)]
 
 figure(2);
 hold;
